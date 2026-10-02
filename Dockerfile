@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/app ./app
 COPY backend/alembic ./alembic
 COPY backend/alembic.ini .
-COPY backend/seed_catalog.py .
+COPY backend/import_catalog.py .
 COPY backend/all-cards.json .
 
 EXPOSE 8000
