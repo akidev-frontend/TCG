@@ -2,7 +2,6 @@ package com.tcg.portfolio.data.network
 
 import com.tcg.portfolio.data.model.ScanResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
