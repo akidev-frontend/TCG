@@ -44,3 +44,6 @@ android/.gradle/
 android/build/
 android/local.properties
 android/app/build/
+
+# Catalog data (download with download_catalog.py)
+backend/catalogo.json
