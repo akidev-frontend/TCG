@@ -16,7 +16,6 @@ import androidx.navigation.NavController
 import com.tcg.portfolio.data.model.SetInfo
 import com.tcg.portfolio.data.model.SetProgress
 import com.tcg.portfolio.navigation.Screen
-import com.tcg.portfolio.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,7 +74,9 @@ fun HomeScreen(navController: NavController) {
             items(progress) { progressItem ->
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    )
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
@@ -112,7 +113,9 @@ fun HomeScreen(navController: NavController) {
             items(sets) { set ->
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
                     onClick = { navController.navigate(Screen.SetDetail.createRoute(set.id)) }
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {

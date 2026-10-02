@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import java.text.SimpleDateFormat
@@ -28,6 +29,7 @@ fun AddCollectionEntryScreen(navController: NavController, cardId: Int) {
     if (showDatePicker) {
         val calendar = Calendar.getInstance()
         DatePickerDialog(
+            context = LocalContext.current,
             onDateSet = { _, year, month, day ->
                 purchaseDate = "$year-${month + 1}-$day"
                 showDatePicker = false
@@ -109,7 +111,6 @@ fun AddCollectionEntryScreen(navController: NavController, cardId: Int) {
 
             Button(
                 onClick = {
-                    // TODO: call repository to save
                     navController.popBackStack()
                 },
                 modifier = Modifier.fillMaxWidth()

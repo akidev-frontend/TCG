@@ -15,7 +15,9 @@ class PortfolioRepository(private val apiService: ApiService) {
     suspend fun healthCheck(): Map<String, String> = apiService.healthCheck()
 
     suspend fun scanCard(imageBytes: ByteArray): ScanResponse {
-        val imageBody = imageBytes.asRequestBody("image/jpeg".toMediaType())
+        val tempFile = File.createTempFile("scan", ".jpg")
+        tempFile.writeBytes(imageBytes)
+        val imageBody = tempFile.asRequestBody("image/jpeg".toMediaType())
         val multipart = MultipartBody.Part.createFormData("image", "scan.jpg", imageBody)
         return apiService.scanCard(multipart)
     }
