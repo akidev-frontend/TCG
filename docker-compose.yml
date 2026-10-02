@@ -1,10 +1,12 @@
 services:
   backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - backend/.env.example
     depends_on:
       - n8n
 
@@ -13,7 +15,7 @@ services:
     ports:
       - "5678:5678"
     env_file:
-      - .env
+      - backend/.env.example
     volumes:
       - n8n_data:/home/node/.n8n
 
