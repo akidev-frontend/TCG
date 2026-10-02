@@ -26,6 +26,7 @@ import com.tcg.portfolio.data.model.ScanResponse
 import com.tcg.portfolio.data.repository.PortfolioRepository
 import com.tcg.portfolio.data.network.ApiClient
 import com.tcg.portfolio.navigation.Screen
+import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,6 +39,7 @@ fun ScanScreen(navController: NavController) {
     var isScanning by remember { mutableStateOf(false) }
     var hasPermission by remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     val repository = remember { PortfolioRepository(ApiClient.apiService) }
 
@@ -55,9 +57,11 @@ fun ScanScreen(navController: NavController) {
             val bytes = file.readBytes()
             isScanning = true
             scanResult = null
-            val result = repository.scanCard(bytes)
-            scanResult = result
-            isScanning = false
+            scope.launch {
+                val result = repository.scanCard(bytes)
+                scanResult = result
+                isScanning = false
+            }
         }
     }
 

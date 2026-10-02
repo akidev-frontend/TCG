@@ -4,6 +4,9 @@ import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.Collections
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -11,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,16 +27,15 @@ fun AddCollectionEntryScreen(navController: NavController, cardId: Int) {
     var purchaseDate by remember { mutableStateOf("") }
     var notes by remember { mutableStateOf("") }
     var showDatePicker by remember { mutableStateOf(false) }
-
-    val dateFormatter = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     if (showDatePicker) {
         val calendar = Calendar.getInstance()
         DatePickerDialog(
-            context = LocalContext.current,
-            onDateSet = { _, year, month, day ->
+            context,
+            { _, year, month, day ->
                 purchaseDate = "$year-${month + 1}-$day"
-                showDatePicker = false
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
