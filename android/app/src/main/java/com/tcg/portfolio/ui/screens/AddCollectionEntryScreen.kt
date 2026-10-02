@@ -1,21 +1,16 @@
 package com.tcg.portfolio.ui.screens
 
 import android.app.DatePickerDialog
+import android.widget.DatePicker
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material.icons.filled.Collections
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,16 +22,17 @@ fun AddCollectionEntryScreen(navController: NavController, cardId: Int) {
     var purchaseDate by remember { mutableStateOf("") }
     var notes by remember { mutableStateOf("") }
     var showDatePicker by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
     if (showDatePicker) {
         val calendar = Calendar.getInstance()
+        val listener = DatePickerDialog.OnDateSetListener { _: DatePicker?, year: Int, month: Int, day: Int ->
+            purchaseDate = "$year-${month + 1}-$day"
+            showDatePicker = false
+        }
         DatePickerDialog(
             context,
-            { _, year, month, day ->
-                purchaseDate = "$year-${month + 1}-$day"
-            },
+            listener,
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
